@@ -1,0 +1,23 @@
+body {
+  background-image: url(../images/background-img/blob-scene-haikei.svg);
+  background-size: cover;
+	width: 100dvw;
+}
+
+.main-text {
+	display: inline;
+	font-size: 2em;	
+	position: relative;
+	top: 400px;
+	left: 50px;
+}
+
+.link-to-projects {
+	text-decoration: none;	
+	font-size: 0.75em;
+	transition: text-decoration 0.15s;
+}
+
+.link-to-projects:hover {
+	text-decoration: underline;
+}
