@@ -1,0 +1,13 @@
+:root {
+	--text: #ffffff;
+	--background: #1a191a;
+	--primary-button: #1c305a;
+	--secondary-button: #e7e5de;
+	--accent: #39456a;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
