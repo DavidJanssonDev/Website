@@ -1,55 +1,85 @@
 body {
   background-image: url(../images/background-img/blob-scene-haikei.svg);
   background-size: cover;
+  background-repeat: no-repeat;
 	width: 100dvw;
+  height: 100dvh;
+
+
+  display: grid; 
+  grid-template-columns:0.05fr auto auto auto; 
+  grid-template-rows: 1fr auto auto 1fr; 
+  grid-template-areas: 
+    ". . . ."
+    ". Text Text Text"
+    ". Link Link Link"
+    ". . . ."; 
 }
 
-.main-text {
-	display: inline;
-	font-size: 6em;	
-	position: relative;
-	top: 400px;
-	left: 50px;
+
+h1 {
+  grid-area: Text;
+	font-size: 4em ;
+  text-align: center;
+  text-decoration: underline;
 }
 
 .link-to-projects {
-	font-size: 0.75em;
-	transition: background 0.15s;
-}
-
-.link-to-projects:hover {
-  background: linear-gradient(
-		to right, 
-		var(--text),
-		rgb(255, 255, 255),
-		rgb(213, 213, 213),
-		rgb(171, 171, 171),
-		rgb(129, 129, 129),
-		rgb(87, 87, 87),
-		rgb(45, 45, 45),
-		rgb(3, 3, 3),
-		rgb(0, 0, 0),
-		rgb(3, 3, 3),
-		rgb(45, 45, 45),
-		rgb(87, 87, 87),
-		rgb(129, 129, 129),
-		rgb(171, 171, 171),
-		rgb(213, 213, 213),
-		rgb(255, 255, 255));
-
+  grid-area: Link;
+  
+  font-size: 2em;
+  text-align: center;
+  
+  background: linear-gradient(to right, var(--text),rgb(255, 255, 255), rgb(255, 255, 255),rgb(213, 213, 213),rgb(171, 171, 171),rgb(129, 129, 129),rgb(87, 87, 87),rgb(45, 45, 45),rgb(26, 25, 26),rgb(45, 45, 45),rgb(87, 87, 87),rgb(129, 129, 129),rgb(171, 171, 171),rgb(213, 213, 213),rgb(255, 255, 255), rgb(255, 255, 255));
   -webkit-background-clip: text;
-  background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
   background-size: 500% auto;
   animation: textShine 3s linear infinite;
 }
 
+
+.link-to-projects:hover {
+  color: var(--secondary-button);
+  -webkit-text-fill-color:var(--secondary-button)
+}
+
+
+@media screen and (width <= 768px) {
+  body {
+      grid-template-columns:  auto auto auto ; 
+      grid-template-rows: 0.5fr auto auto 1fr ;  
+      gap: 2em 0em; 
+      grid-template-areas: 
+        " .    .    .    "
+        " Text Text Text "
+        " Link Link Link "
+        " .    .    .    "; 
+  }
+  
+  h1 {
+    grid-area: Text;
+    font-size: 2em;
+    text-align: center;
+    text-decoration: underline;
+    padding: 0.5em 0.5em 0.5em;
+  }   
+
+  .link-to-projects {
+    font-size: 1.5em;
+    text-align: center;
+    padding: 0.5em 0.5em 0.5em;
+  } 
+}
+
+
+
+/* ANIMATIONS */
+
 @keyframes textShine {
 	0% {
 		background-position: 0% 50%;
-}
-100% {
+  }
+  100% {
 		background-position: 100% 50%;
-}
+  }
 }
