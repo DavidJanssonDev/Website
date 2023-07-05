@@ -5,6 +5,7 @@
 :root {
 	--text: #ffffff;
 	--background: #1a191a;
+	--secoundary-background: #2e2e2e;
 	--primary-button: #1c305a;
 	--secondary-button: #e7e5de;
 	--accent: #39456a;
@@ -16,6 +17,15 @@
 	box-sizing: border-box;
 	color: var(--text)
 }
+
+body {
+  background-image: url(../images/background-img/blob-scene-haikei.svg);
+  background-size: cover;
+  width: 100dvw;
+  height: 100dvh;
+
+}
+
 
 /* Text  */
 h1, h2, h3, h4, p, a {

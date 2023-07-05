@@ -1,11 +1,4 @@
 body {
-  background-image: url(../images/background-img/blob-scene-haikei.svg);
-  background-size: cover;
-  background-repeat: no-repeat;
-	width: 100dvw;
-  height: 100dvh;
-
-
   display: grid; 
   grid-template-columns:0.05fr auto auto auto; 
   grid-template-rows: 1fr auto auto 1fr; 
@@ -26,10 +19,8 @@ h1 {
 
 .link-to-projects {
   grid-area: Link;
-  
   font-size: 2em;
   text-align: center;
-  
   background: linear-gradient(to right, var(--text),rgb(255, 255, 255), rgb(255, 255, 255),rgb(213, 213, 213),rgb(171, 171, 171),rgb(129, 129, 129),rgb(87, 87, 87),rgb(45, 45, 45),rgb(26, 25, 26),rgb(45, 45, 45),rgb(87, 87, 87),rgb(129, 129, 129),rgb(171, 171, 171),rgb(213, 213, 213),rgb(255, 255, 255), rgb(255, 255, 255));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
