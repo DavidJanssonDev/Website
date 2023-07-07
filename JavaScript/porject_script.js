@@ -84,8 +84,8 @@ const elementImage = (picture, key) => {
 
 
 const getDeviceType = () => {
-  const mobileBreakpoint = 425;
-  const tabletBreakpoint = 1000;
+  const mobileBreakpoint = 500;
+  const tabletBreakpoint = 1024;
   const userDeviceWidth = window.innerWidth;
 
   if (userDeviceWidth > tabletBreakpoint) {
