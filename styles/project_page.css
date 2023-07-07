@@ -1,4 +1,5 @@
-.container {  
+.container {
+  --text-font-size: 3em;  
     display: grid;
     grid-template-columns: 0.125fr repeat(3, 1fr) 0.125fr;
     grid-template-rows: 2% 1fr 0.125fr repeat(3, 1fr) 2%;
@@ -17,7 +18,7 @@
 
 .container > h1 {
   grid-area: TEXT;
-  font-size: 4em;
+  font-size: var(--text-font-size);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,7 +32,7 @@
     grid-area: game-area;
     grid-template-columns: 0.125fr repeat(var(--grid-gmae-columns), 1fr) 0.125fr;
     grid-template-rows: 0.05fr repeat(var(--amout-of-rows), minmax(min-content, max-content)) 0.05fr;
-    gap: 0.75em 0.5em;
+    gap: 0.75em 0.75em;
     grid-template-areas: var(--game-grid);
   overflow-y: scroll;
         
@@ -50,3 +51,10 @@ img {
    
 }
 
+
+@media screen and ( width <= 768px) { 
+  .container {
+    --text-font-size: 2em
+  }  
+
+}
