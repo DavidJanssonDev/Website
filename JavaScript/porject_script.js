@@ -1,6 +1,5 @@
 const GAME_OPTIONS_AREA_GALLERY = document.getElementById("game-area");
 
-
 const PATH_TO_GAME_INDEX = {
   GAME_1: "../games/game_1/index.html",
   GAME_2: "../games/game_2/index.html",
@@ -23,30 +22,24 @@ const PATH_TO_GAME_PICTURE = {
   GAME_PICTURE_7: "../games/game_7/pic/game_picture",
   GAME_PICTURE_8: "../games/game_8/pic/game_picture",
   GAME_PICTURE_9: "../games/game_9/pic/game_picture",
-
 };
 
 const FULL_ELEMENT_OBJECT = {};
 
-Object.keys(PATH_TO_GAME_INDEX).forEach(key => {
-  FULL_ELEMENT_OBJECT[key] = {
-    index_file: PATH_TO_GAME_INDEX[key],
-    picture: PATH_TO_GAME_PICTURE[`GAME_PICTURE_${key.slice(-1)}`]
-  };
-});
+for (const key of Object.keys(PATH_TO_GAME_INDEX)) {
+  const indexFile = PATH_TO_GAME_INDEX[key];
+  const picture = PATH_TO_GAME_PICTURE[`GAME_PICTURE_${key.slice(-1)}`];
+  FULL_ELEMENT_OBJECT[key] = { index_file: indexFile, picture };
+}
 
 const AMOUNT_OF_GAMES = Object.keys(FULL_ELEMENT_OBJECT).length;
 
-/*
-Creating the element that contains the games and testing them out if they work or not, 
-if they work they show the pictrue of the game if not they shows the comming soon screan
-*/
 
-test_URL = (url) => {
+const testURL = (url) => {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('HEAD', url);
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           resolve();
@@ -59,48 +52,53 @@ test_URL = (url) => {
   });
 };
 
-making_the_elements = () => {
-  Object.keys(FULL_ELEMENT_OBJECT).forEach((key, index) => {
-    const { index_file, picture } = FULL_ELEMENT_OBJECT[key];
-    
-    test_URL(index_file)
-    .then(() => {
-      const htmlString = element_link(index_file, picture, index);
-        GAME_OPTIONS_AREA_GALLERY.insertAdjacentHTML("beforeend", htmlString);
-        console.log(`Game ${index + 1} index.html found. Picture loaded successfully.`);
-      })
-      .catch(() => {
-        const htmlString = element_image("../images/IMG/COMING SOO SCREAN.png", index);
-        GAME_OPTIONS_AREA_GALLERY.insertAdjacentHTML("beforeend", htmlString);
-        console.log(`Game ${index + 1} index.html not found. Loading fallback image.`);
-      });
-  });
+
+const makeElements = async () => {
+  for (const [key, value] of Object.entries(FULL_ELEMENT_OBJECT)) {
+    const { index_file, picture } = value;
+
+    try {
+      await testURL(index_file);
+      const htmlString = elementLink(index_file, picture, key);
+      GAME_OPTIONS_AREA_GALLERY.insertAdjacentHTML("beforeend", htmlString);
+      console.log(`Game ${key.slice(-1)} index.html found. Picture loaded successfully.`);
+    } catch {
+      const htmlString = elementImage("../images/IMG/COMING SOO SCREAN.png", key);
+      GAME_OPTIONS_AREA_GALLERY.insertAdjacentHTML("beforeend", htmlString);
+      console.log(`Game ${key.slice(-1)} index.html not found. Loading fallback image.`);
+    }
+  }
 };
 
-element_link = (index_file, picture, index) => {
+const elementLink = (index_file, picture, key) => {
   return `
-  <a href="${index_file}" target="_blank" title="Click to play game ${index + 1}" style="grid-area: game-${index}">
-    <img src="${picture}" alt="Game ${index + 1}" draggable="false" />
+  <a href="${index_file}" target="_blank" title="Click to play game ${key.slice(-1)}" style="grid-area: game-${key.slice(-1)}">
+    <img src="${picture}" alt="Game ${key.slice(-1)}" draggable="false" />
   </a>`;
 };
 
-element_image = (picture, index) => {
+const elementImage = (picture, key) => {
   return `
-  <img src="${picture}" alt="Game ${index + 1} Coming Soon" style="grid-area:game-${index+1}" draggable="false"/>`;
+  <img src="${picture}" alt="Game ${key.slice(-1)} Coming Soon" style="grid-area:game-${key.slice(-1)}" draggable="false"/>`;
 };
 
 
+const getDeviceType = () => {
+  const mobileBreakpoint = 425;
+  const tabletBreakpoint = 1000;
+  const userDeviceWidth = window.innerWidth;
 
-/*
+  if (userDeviceWidth > tabletBreakpoint) {
+    return "desktop";
+  } else if (userDeviceWidth <= mobileBreakpoint) {
+    return "mobile";
+  } else {
+    return "tablet";
+  }
+};
 
-Styling the grid in a way soo that thay are on the right place when the game elements are made
 
-*/
-
-
-
-
- grid_patten = (number) => {
+const desktopPattern = (number) => {
   let pattern = '". . . . ."\n';
 
   for (let i = 1; i <= number; i += 3) {
@@ -110,15 +108,51 @@ Styling the grid in a way soo that thay are on the right place when the game ele
   pattern += '". . . . ."';
 
   return pattern;
+};
+
+const tabletPattern = (number) => {
+  let pattern = '". . . ."\n';
+
+  for (let i = 1; i <= number; i += 2) {
+    pattern += '". game-' + i + ' game-' + (i + 1) + ' ."';
+  }
+
+  pattern += '". . . ."';
+
+  return pattern;
 }
 
+const mobilePattern = (number) => {
+  let pattern = '". . ."\n';
 
-change_grid_varible_in_css = () => {
-  document.documentElement.style.setProperty("--game-grid", grid_patten(AMOUNT_OF_GAMES));
-  document.documentElement.style.setProperty("--amout-of-rows", AMOUNT_OF_GAMES);
-  
+for (let i = 1; i <= number; i++) {
+  pattern += '". game-' + i + ' ."';
 }
 
+pattern += '". . ."';
 
-making_the_elements();
-change_grid_varible_in_css()
+return pattern;
+}
+
+const chocesWhatPattern = (device) => {
+
+  if (device === 'desktop') return desktopPattern(AMOUNT_OF_GAMES);
+  else if (device === 'tablet') return tabletPattern(AMOUNT_OF_GAMES);
+  if (device === 'mobile') return mobilePattern(AMOUNT_OF_GAMES);
+} 
+
+
+
+const changeGridVariableInCss = (pattern) => {
+  document.documentElement.style.setProperty("--game-grid", pattern);
+  document.documentElement.style.setProperty("--amount-of-rows", AMOUNT_OF_GAMES);
+};
+
+// RUNNING EVERYTHING
+window.addEventListener("load", () => {
+  let device = getDeviceType();
+  makeElements();
+  let pattern = chocesWhatPattern(device);
+  changeGridVariableInCss(pattern);
+});
+

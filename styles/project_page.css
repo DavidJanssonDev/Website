@@ -1,7 +1,7 @@
 .container {  
     display: grid;
-    grid-template-columns: 0.125fr repeat(1fr, 3) 0.125fr;
-    grid-template-rows: 0.125fr 1fr 0.125fr repeat(1fr, 3) 0.125fr;
+    grid-template-columns: 0.125fr repeat(3, 1fr) 0.125fr;
+    grid-template-rows: 2% 1fr 0.125fr repeat(3, 1fr) 2%;
     grid-auto-columns: 1fr;
     gap: 0em 0em;
     grid-auto-flow: row;
@@ -29,10 +29,11 @@
     background-color: var(--secoundary-background);
     display: grid;
     grid-area: game-area;
-    grid-template-columns: 0.125fr 1fr 1fr 1fr 0.125fr;
+    grid-template-columns: 0.125fr repeat(var(--grid-gmae-columns), 1fr) 0.125fr;
     grid-template-rows: 0.05fr repeat(var(--amout-of-rows), minmax(min-content, max-content)) 0.05fr;
-    gap: 0.5em 0.5em;
+    gap: 0.75em 0.5em;
     grid-template-areas: var(--game-grid);
+  overflow-y: scroll;
         
 }
 
@@ -48,3 +49,4 @@ img {
   object-fit:contain; 
    
 }
+
