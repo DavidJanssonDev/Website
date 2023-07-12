@@ -13,7 +13,7 @@ const PATH_TO_GAME_INDEX = {
 };
 
 const PATH_TO_GAME_PICTURE = {
-  GAME_PICTURE_1: "../games/game_1/pic/game_picture",
+  GAME_PICTURE_1: "../games/game_1/pic/game_picture.png",
   GAME_PICTURE_2: "../games/game_2/pic/game_picture",
   GAME_PICTURE_3: "../games/game_3/pic/game_picture",
   GAME_PICTURE_4: "../games/game_4/pic/game_picture",
